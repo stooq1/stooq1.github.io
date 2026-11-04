@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>stooq1 - market data, backtests, exchange adapters</title>
+<meta name="description" content="Market-data collectors, backtest reviews and fixes in open-source trading libraries. Crypto perpetuals and MOEX futures.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a class="home" href="/" aria-current="page">stooq1</a>
+  <a href="/patches/">patches</a>
+  <a href="/contact/">contact</a>
+  <a href="https://github.com/stooq1">github</a>
+</nav>
+
+<h1>Market data, collected and checked against the exchange</h1>
+<p class="lead">I build collectors for exchange data and review backtests and trading libraries by comparing their numbers with what the venue itself reports. Crypto perpetuals and MOEX futures, Python and ClickHouse.</p>
+
+<h2>What I build and check</h2>
+<dl>
+  <dt>Collectors</dt>
+  <dd>Websocket feeds into ClickHouse, with reconnects and batch inserts. The one behind my research has been recording Binance futures (order book, trades, mark price, liquidations, open interest) unattended since June 2026.</dd>
+  <dt>Backtest review</dt>
+  <dd>Lookahead, fill prices, fees, funding and liquidation. I rerun the engine on the same period and compare it with the exchange's own history.</dd>
+  <dt>Exchange adapters</dt>
+  <dd>Pagination limits, contract units, the side of a trade or a liquidation. Most of my merged patches are in this layer.</dd>
+  <dt>Research</dt>
+  <dd>Event studies and walk-forward tests, with the pass mark written down before the run.</dd>
+</dl>
+
+<h2>Code and write-ups</h2>
+<ul>
+  <li><a href="https://github.com/stooq1/strategy-graveyard">strategy-graveyard</a>: four months of tests of retail trading edges, each closed with a number, plus the collector and scripts that produced them.</li>
+  <li><a href="/patches/">Patches</a>: 8 merged into ccxt and cryptofeed since October 2026. Others are open in nautilus_trader, vectorbt, zipline-reloaded and hummingbot.</li>
+  <li><a href="https://dev.to/stooq1">dev.to/stooq1</a>: extreme funding on 658 Binance perpetuals, and a test I failed after writing the pass mark down in advance.</li>
+</ul>
+
+<h2>Email</h2>
+<p><a class="mail" href="mailto:mail@stooq1.com">mail@stooq1.com</a></p>
+<p>Remote work on market-data pipelines, exchange integrations and backtest reviews. A one-off look at a single strategy or data feed works too. <a href="/contact/">What to include</a>.</p>
+
+<footer>stooq1 · <a href="https://github.com/stooq1">github.com/stooq1</a></footer>
+</div>
+</body>
+</html>

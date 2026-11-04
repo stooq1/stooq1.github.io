@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Patches - stooq1</title>
+<meta name="description" content="Pull requests and issues from stooq1 in ccxt, cryptofeed, nautilus_trader, vectorbt, zipline-reloaded and hummingbot, with their status.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="wrap">
+<nav>
+  <a class="home" href="/">stooq1</a>
+  <a href="/patches/" aria-current="page">patches</a>
+  <a href="/contact/">contact</a>
+  <a href="https://github.com/stooq1">github</a>
+</nav>
+
+<h1>Patches to trading libraries</h1>
+<p>Bugs I found while checking what a library returns against the exchange's data and API docs. Each went to the project as a pull request or an issue, together with a script that shows it. Since 24 October 2026: 29 pull requests and 3 issues in six projects. 8 are merged, the project solved 1 more with its own change, and the rest are open.</p>
+
+<h3>ccxt</h3>
+<p class="sub">16 pull requests, 3 merged</p>
+<ul class="log">
+  <li><span class="st merged">merged</span>OKX <code>fetchFundingHistory</code> asked for the latest 100 bills of every swap in the currency and filtered locally, so one symbol could get 16 of its 42 payments. <a href="https://github.com/ccxt/ccxt/pull/30993">#30993</a></li>
+  <li><span class="st merged">merged</span>Bitstamp funding-rate history always came back empty: timestamps and symbol were not parsed. <a href="https://github.com/ccxt/ccxt/pull/31025">#31025</a></li>
+  <li><span class="st merged">merged</span>Bybit <code>watchLiquidations</code> reported the side of the position. It now reports the side of the liquidation order, as on Binance and OKX. <a href="https://github.com/ccxt/ccxt/pull/31042">#31042</a></li>
+  <li><span class="st">open</span>Gate <code>fetchLiquidations</code>: the same side convention. <a href="https://github.com/ccxt/ccxt/pull/31047">#31047</a></li>
+  <li><span class="st">open</span>Funding-rate history pagination moved by an assumed interval instead of the returned timestamps, so symbols with shorter funding intervals came back with gaps (on Binance, 44-46% of the rows for 4h symbols). Binance <a href="https://github.com/ccxt/ccxt/pull/30983">#30983</a>, OKX <a href="https://github.com/ccxt/ccxt/pull/30987">#30987</a>, Gate <a href="https://github.com/ccxt/ccxt/pull/31006">#31006</a>, WhiteBIT <a href="https://github.com/ccxt/ccxt/pull/31007">#31007</a>, Crypto.com <a href="https://github.com/ccxt/ccxt/pull/31013">#31013</a>, Phemex <a href="https://github.com/ccxt/ccxt/pull/31014">#31014</a>, HitBTC <a href="https://github.com/ccxt/ccxt/pull/31019">#31019</a>, BloFin <a href="https://github.com/ccxt/ccxt/pull/31020">#31020</a>, HTX <a href="https://github.com/ccxt/ccxt/pull/31024">#31024</a></li>
+  <li><span class="st">open</span>OKX <code>fetchOHLCV</code> with pagination skipped mark and index candles: 400 of 720 hourly candles over 30 days. <a href="https://github.com/ccxt/ccxt/pull/30996">#30996</a></li>
+  <li><span class="st">open</span>BingX <code>fetchOHLCV</code> with pagination lost part of the range from 5m up: 1961 of 2401 hourly candles over 100 days. <a href="https://github.com/ccxt/ccxt/pull/31095">#31095</a></li>
+  <li><span class="st">open</span>Coinbase public trades carried the maker side, while unified trades use the taker side. <a href="https://github.com/ccxt/ccxt/pull/31032">#31032</a></li>
+</ul>
+
+<h3>cryptofeed</h3>
+<p class="sub">6 pull requests, 5 merged</p>
+<ul class="log">
+  <li><span class="st merged">merged</span>Bybit liquidations had the side inverted. <a href="https://github.com/bmoscon/cryptofeed/pull/1159">#1159</a></li>
+  <li><span class="st merged">merged</span>Bybit open interest was twice what Binance, OKX and Deribit report for the same contracts. <a href="https://github.com/bmoscon/cryptofeed/pull/1160">#1160</a></li>
+  <li><span class="st merged">merged</span>Deribit liquidations where the maker was liquidated came with the wrong side. <a href="https://github.com/bmoscon/cryptofeed/pull/1162">#1162</a></li>
+  <li><span class="st merged">merged</span>OKX symbol info gained <code>contract_size</code>. <a href="https://github.com/bmoscon/cryptofeed/pull/1168">#1168</a></li>
+  <li><span class="st merged">merged</span>Gate candle volume was in the quote currency instead of the base. <a href="https://github.com/bmoscon/cryptofeed/pull/1169">#1169</a></li>
+  <li><span class="st fixed">resolved</span>OKX replayed the last 100 liquidations on every start of the poller. The maintainer made history an opt-in setting instead of taking my patch. <a href="https://github.com/bmoscon/cryptofeed/pull/1167">#1167</a></li>
+</ul>
+
+<h3>nautilus_trader</h3>
+<p class="sub">2 issues, 1 pull request</p>
+<ul class="log">
+  <li><span class="st">open</span>In a backtest on bar or trade data, liquidation never triggered. Issue <a href="https://github.com/nautechsystems/nautilus_trader/issues/5453">#5453</a>, fix <a href="https://github.com/nautechsystems/nautilus_trader/pull/5538">#5538</a></li>
+  <li><span class="st">open</span>Inverse instruments: the same fills gave different realized PnL under NETTING and HEDGING. <a href="https://github.com/nautechsystems/nautilus_trader/issues/5444">#5444</a></li>
+</ul>
+
+<h3>vectorbt</h3>
+<p class="sub">2 pull requests</p>
+<ul class="log">
+  <li><span class="st">open</span>Gross exposure of a fully short portfolio stayed at 1.0 at any price. <a href="https://github.com/polakowo/vectorbt/pull/903">#903</a></li>
+  <li><span class="st">open</span>Rounding an order down to <code>size_granularity</code> could drop a whole lot. <a href="https://github.com/polakowo/vectorbt/pull/894">#894</a></li>
+</ul>
+
+<h3>zipline-reloaded</h3>
+<p class="sub">1 issue, 1 pull request</p>
+<ul class="log">
+  <li><span class="st">open</span>Cash dividends from csvdir and quandl bundles never reached the portfolio. Issue <a href="https://github.com/stefan-jansen/zipline-reloaded/issues/367">#367</a>, fix <a href="https://github.com/stefan-jansen/zipline-reloaded/pull/368">#368</a></li>
+</ul>
+
+<h3>hummingbot</h3>
+<p class="sub">3 pull requests</p>
+<ul class="log">
+  <li><span class="st">open</span>Bybit spot candles: history older than the latest 1000 candles could not be fetched. <a href="https://github.com/hummingbot/hummingbot/pull/8512">#8512</a></li>
+  <li><span class="st">open</span>MEXC perpetual candles: the window went out in milliseconds where the endpoint expects seconds, so only the latest 2000 candles came back. <a href="https://github.com/hummingbot/hummingbot/pull/8513">#8513</a></li>
+  <li><span class="st">open</span>Gate.io spot candles: a window of 1000 intervals asked for 1001 points and got HTTP 400. <a href="https://github.com/hummingbot/hummingbot/pull/8514">#8514</a></li>
+</ul>
+
+<footer>Status from GitHub, 4 November 2026 · <a href="/contact/">mail@stooq1.com</a></footer>
+</div>
+</body>
+</html>
