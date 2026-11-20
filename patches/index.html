@@ -18,10 +18,10 @@
 </nav>
 
 <h1>Patches to trading libraries</h1>
-<p>Bugs I found while checking what a library returns against the exchange's data and API docs. Each went to the project as a pull request or an issue, together with a script that shows it. Since 24 October 2026: 33 pull requests and 3 issues in six projects. 26 are merged, the project solved 1 more with its own change, and the rest are open.</p>
+<p>Bugs I found while checking what a library returns against the exchange's data and API docs. Each went to the project as a pull request or an issue, together with a script that shows it. Since 24 October 2026: 34 pull requests and 3 issues in six projects. 26 are merged, 1 more went in as part of a maintainer's commit, 1 was solved by the project with its own change, and the rest are open.</p>
 
 <h3>ccxt</h3>
-<p class="sub">19 pull requests, 18 merged (15 of them through ccxt's batch pull requests, as co-author)</p>
+<p class="sub">20 pull requests, 18 merged (15 of them through ccxt's batch pull requests, as co-author)</p>
 <ul class="log">
   <li><span class="st merged">merged</span>OKX <code>fetchFundingHistory</code> asked for the latest 100 bills of every swap in the currency and filtered locally, so one symbol could get 16 of its 42 payments. <a href="https://github.com/ccxt/ccxt/pull/30993">#30993</a></li>
   <li><span class="st merged">merged</span>Bitstamp funding-rate history always came back empty: timestamps and symbol were not parsed. <a href="https://github.com/ccxt/ccxt/pull/31025">#31025</a></li>
@@ -35,6 +35,7 @@
   <li><span class="st merged">merged</span>The same funding-rate pagination fix on Binance (44-46% of the rows missing for 4h symbols) <a href="https://github.com/ccxt/ccxt/pull/30983">#30983</a> and Gate <a href="https://github.com/ccxt/ccxt/pull/31006">#31006</a></li>
   <li><span class="st merged">merged</span>OKX <code>fetchOHLCV</code> with pagination skipped mark and index candles: 400 of 720 hourly candles over 30 days. <a href="https://github.com/ccxt/ccxt/pull/30996">#30996</a></li>
   <li><span class="st">open</span>OKX <code>fetchTrades</code> with pagination returned the same trades again: 109 distinct trades in 1000 rows. <a href="https://github.com/ccxt/ccxt/pull/31115">#31115</a></li>
+  <li><span class="st">open</span>Bitget <code>fetchOHLCV</code> with pagination and <code>until</code> returned only the last 200 candles before <code>until</code>: 200 of 1680 hourly candles over 70 days. <a href="https://github.com/ccxt/ccxt/pull/31269">#31269</a></li>
 </ul>
 
 <h3>cryptofeed</h3>
@@ -49,10 +50,10 @@
 </ul>
 
 <h3>nautilus_trader</h3>
-<p class="sub">2 issues, 2 pull requests, 1 merged</p>
+<p class="sub">2 issues, 2 pull requests, 1 merged, 1 taken into a maintainer's commit</p>
 <ul class="log">
   <li><span class="st merged">merged</span>In a backtest on bar or trade data, liquidation never triggered. Issue <a href="https://github.com/nautechsystems/nautilus_trader/issues/5453">#5453</a>, fix <a href="https://github.com/nautechsystems/nautilus_trader/pull/5538">#5538</a></li>
-  <li><span class="st">open</span>Inverse instruments: the same fills gave different realized PnL under NETTING and HEDGING. Issue <a href="https://github.com/nautechsystems/nautilus_trader/issues/5444">#5444</a>, fix <a href="https://github.com/nautechsystems/nautilus_trader/pull/5670">#5670</a></li>
+  <li><span class="st fixed">landed</span>Inverse instruments: the same fills gave different realized PnL under NETTING and HEDGING. The maintainer took my fix into his own commit on develop (<a href="https://github.com/nautechsystems/nautilus_trader/commit/33afa222ceeed275ca75e786407801de507c8649">33afa22</a>). Issue <a href="https://github.com/nautechsystems/nautilus_trader/issues/5444">#5444</a>, fix <a href="https://github.com/nautechsystems/nautilus_trader/pull/5670">#5670</a></li>
 </ul>
 
 <h3>vectorbt</h3>
